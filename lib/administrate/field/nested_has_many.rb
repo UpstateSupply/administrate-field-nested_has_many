@@ -48,8 +48,12 @@ module Administrate
       end
 
       def self.associated_attributes(associated_resource)
-        DEFAULT_ATTRIBUTES +
-          dashboard_for_resource(associated_resource).new.permitted_attributes
+        if options[:skip_link]
+          DEFAULT_ATTRIBUTES
+        else
+          DEFAULT_ATTRIBUTES +
+            dashboard_for_resource(associated_resource).new.permitted_attributes
+        end
       end
 
       def self.permitted_attribute(associated_resource, _options = nil)
